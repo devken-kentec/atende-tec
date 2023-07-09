@@ -1,0 +1,21 @@
+export interface Fila {
+    id: number;
+    ativacao: string,
+    chamada: string,
+    inicio: string,
+    finalizado: string,
+    avaliacao: string,
+    statusFila: string,
+    identificador: number,
+    senha: string,
+    nome: string,
+    cpfCnpj: string,
+    unidade: string,
+    data: string,
+    horario: string,
+    servico: string,
+    detalhamentoServico: string,
+    statusAgendamento: string,
+    prioridade: string,
+    atendente: null,
+}

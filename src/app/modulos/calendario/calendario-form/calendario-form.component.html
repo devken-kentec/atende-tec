@@ -1,0 +1,76 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/calendario">Listagem</a></li>
+        <li class="breadcrumb-item active">Calendario</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Cadastro do Calendário
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/calendario" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="calendarioForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Formulário para Cadastro do Calendário
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-1">
+              <label for="id">ID:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="id"
+                formControlName="id"
+                readonly
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="dia">Dia:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dia"
+                formControlName="dia"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="obs">Observação:</label>
+              <select class="form-control" id="obs" name="observacao" formControlName="observacao">
+                <option value="" selected>Escolha uma opção</option>
+                <option value="Normal">Normal</option>
+                <option value="Feriado">Feriado</option>
+                <option value="Sábado">Sábado</option>
+                <option value="Domingo">Domingo</option>
+                <option value="Ponto Facultativo">Ponto facultativo</option>
+                <option value="Cancelado">Cancelado</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="obs">Status:</label>
+              <select class="form-control" id="status" name="status" formControlName="statusCalendario">
+                <option value="" selected>Escolha uma opção</option>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button type="submit" (click)="onSumit()" class="btn btn-success float-right mt-2">
+      <i class="fas fa-save"></i> &nbsp;Salvar
+      </button>
+    </div>
+  </div>

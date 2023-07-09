@@ -1,0 +1,89 @@
+<nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+    <li class="breadcrumb-item active">Listagem</li>
+  </ol>
+</nav>
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h3 border-left pl-2">
+      Listagem de Atendimento Diário
+    </h1>
+  </div>
+</div>
+<form class="needs-validation" novalidate [formGroup]="buscarForm">
+<div class="col-12 mb-2">
+  <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Pesquisar Atendimentos
+  </button>
+  <div class="collapse " id="collapseExample">
+  <div style="box-shadow: 5px 5px 10px #000;" class="card">
+  <div class="card-header">
+     <div class="row col-12 ml-1">
+      <label for="nDoTermo">Filtro para Listagem das Atendimemtos Diários:</label>
+    </div>
+  </div>
+  <div class="card-body">
+  <div class="row col-12">
+    <div class="form-group col-md-2">
+      <label for="dataIn">Data Inicial:</label>
+      <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="dataOut">Data Final:</label>
+      <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="unidade">Unidades:</label>
+      <select  class="form-control" id="unidade" formControlName="unidade">
+        <option value="">Nenhum</option>
+        <option *ngFor="let unidade of unidades" [value]="unidade.descricao">{{unidade.descricao}}</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label for="mat">Matrícula:</label>
+        <input id="mat" type="text" class="form-control" formControlName="matricula"/>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="nom">Nome:</label>
+      <input id="nom" type="text" class="form-control" formControlName="nome"/>
+  </div>
+    <div class="row col-12">
+      <div class="col-2">
+        <button  class="btn btn-info float-left" (click)="pesquisar()">
+          <i class="fas fa-search"></i> Pesquisar
+        </button>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+</form>
+<div class="d-flex justify-content-center mt-5" style="font-size: 14pt; font-weight: bold;" *ngIf="!atendimentos">USE O FILTRO ACIMA PARA GERAR A LISTA.</div>
+<div id="tbsd" class="table-responsive mb-3" *ngIf="atendimentos">
+ <table class="table table-hover">
+   <thead>
+     <tr class="bg-success text-light">
+       <th>Realizado</th>
+       <th>Senha</th>
+       <th>Descrição do Serviço</th>
+       <th>Matrícula</th>
+       <th>Servidor</th>
+       <th>Avaliação</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr *ngFor="let atendimento of atendimentos">
+       <td>{{ atendimento.realizado | date:"dd/MM/yyyy" }}</td>
+       <td>{{ atendimento.senha }}</td>
+       <td>{{ atendimento.detalhamentoServicoDescricao }}</td>
+       <td>{{ atendimento.matricula }}</td>
+       <td>{{ atendimento.nomeServidor }}</td>
+       <td>{{ atendimento.avaliacao }}</td>
+     </tr>
+   </tbody>
+ </table>
+</div>
+<div *ngIf="atendimentos" style="font-size: 14pt; font-weight: bold;">Total de Atendimentos: {{ somatorio }}</div>

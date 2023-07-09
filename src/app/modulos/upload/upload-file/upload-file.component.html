@@ -1,0 +1,89 @@
+<div class="col-md-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Upload de Arquivos</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h3 border-left pl-2">
+          Upload de Arquivos
+      </h1>
+      <form class="needs-validation" novalidate [formGroup]="uploadForm">
+        <div class="container mt-5">
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-6">
+              <input type="file" class="form-control-file" id="file1" (change)="tamanhoCalendario($event)" formControlName="calendario">
+              <span type="number" id="tamanhoCalendario"></span><span>&nbsp;bytes</span>&nbsp;
+              <span *ngIf="enviadoCalendario" style="font-weight: bold; color: blue;">Enviado com sucesso</span>
+            </div>
+            <div class="col-md-6">
+              <button type="button" (click)="uploadCalendario()" class="btn btn-success ml-3 col-md-6" [disabled]="!uploadForm.get('calendario').value">Enviar Arquivo Calendário</button>
+           </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-6">
+              <input type="file" class="form-control-file" id="file2" (change)="tamanhoGrade($event)" formControlName="grade">
+              <span type="number" id="tamanhoGrade"></span><span>&nbsp;bytes</span>&nbsp;
+              <span *ngIf="enviadoGrade" style="font-weight: bold; color: blue;">Enviado com sucesso</span>
+            </div>
+            <div class="col-md-6">
+              <button type="button" (click)="uploadGrade()" class="btn btn-success ml-3 col-md-6" [disabled]="!uploadForm.get('grade').value">Enviar Arquivo Grade</button>
+           </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-6">
+              <input type="file" class="form-control-file" id="file3" (change)="tamanhoServico($event)" formControlName="servico">
+              <span type="number" id="tamanhoServico"></span><span>&nbsp;bytes</span>&nbsp;
+              <span *ngIf="enviadoServico" style="font-weight: bold; color: blue;">Enviado com sucesso</span>
+            </div>
+            <div class="col-md-6">
+              <button type="button" (click)="uploadServico()" class="btn btn-success ml-3 col-md-6" [disabled]="!uploadForm.get('servico').value">Enviar Arquivo Serviço</button>
+           </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-6">
+              <input type="file" class="form-control-file" id="file4" (change)="tamanhoDetalheServico($event)" formControlName="detalheServico">
+              <span type="number" id="tamanhoDetalheServico"></span><span>&nbsp;bytes</span>&nbsp;
+              <span *ngIf="enviadoDetalheServico" style="font-weight: bold; color: blue;">Enviado com sucesso</span>
+            </div>
+            <div class="col-md-6">
+              <button type="button" (click)="uploadDetalheServico()" class="btn btn-success ml-3 col-md-6" [disabled]="!uploadForm.get('detalheServico').value">Enviar Arquivo Detalhe Serviço</button>
+           </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-6">
+              <input type="file" class="form-control-file" id="file5" (change)="tamanhoUnidade($event)" formControlName="unidade">
+              <span type="number" id="tamanhoUnidade"></span><span>&nbsp;bytes</span>&nbsp;
+              <span *ngIf="enviadoUnidade" style="font-weight: bold; color: blue;">Enviado com sucesso</span>
+            </div>
+            <div class="col-md-6">
+              <button type="button" (click)="uploadUnidade()" class="btn btn-success ml-3 col-md-6" [disabled]="!uploadForm.get('unidade').value">Enviar Arquivo Unidade</button>
+           </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-6">
+              <input type="file" class="form-control-file" id="file6" (change)="tamanhoOrgao($event)" formControlName="orgao">
+              <span type="number" id="tamanhoOrgao"></span><span>&nbsp;bytes</span>&nbsp;
+              <span *ngIf="enviadoOrgao" style="font-weight: bold; color: blue;">Enviado com sucesso</span>
+            </div>
+            <div class="col-md-6">
+              <button type="button" (click)="uploadOrgao()" class="btn btn-success ml-3 col-md-6" [disabled]="!uploadForm.get('orgao').value">Enviar Arquivo Orgão</button>
+           </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-6">
+              <input type="file" class="form-control-file" id="file7" (change)="tamanhoServidor($event)" formControlName="servidor">
+              <span type="number" id="tamanhoServidor"></span><span>&nbsp;bytes</span>&nbsp;
+              <span *ngIf="enviadoServidor" style="font-weight: bold; color: blue;">Enviado com sucesso</span>
+            </div>
+            <div class="col-md-6">
+              <button type="button" (click)="uploadServidor()" class="btn btn-success ml-3 col-md-6" [disabled]="!uploadForm.get('servidor').value">Enviar Arquivo Servidor</button>
+           </div>
+          </div>
+        </div>
+      </form>
+</div>
+
+

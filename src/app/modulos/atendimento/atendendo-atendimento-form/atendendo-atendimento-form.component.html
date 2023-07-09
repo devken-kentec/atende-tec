@@ -1,0 +1,162 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/atendimento">Atendimento</a></li>
+        <li class="breadcrumb-item"><a routerLink="/atendimento/listaAtendimento">Listagem</a></li>
+        <li class="breadcrumb-item active">Formulário de Atendimento de Contribuinte</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Atendimento ao Cliente
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/atendimento/listaAtendimento/{{ servidor }}/{{ statusAtendente }}" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="atendimentoForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Atendimento ao Cliente
+        </div>
+        <div class="card-body">
+            <div class="form-row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-row col-md-12">
+                        <label style="color: green; font-weight: bold; font-size: 12pt;">DADOS DO ATENDENTE</label>
+                      </div>
+                      <div class="form-row col-md-12">
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Matrícula:&#160;</label><span>{{ matricula }}</span>
+                        </div>
+                        <div class="col-md-9">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Servidor:&#160;</label><span>{{ servidor }}</span>
+                        </div>
+                      </div>
+                      <div class="form-row col-md-12 border-bottom">
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Status:&#160;</label><span>{{ statusAtendente }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Guichê:&#160;</label><span>{{ guiche }}</span>
+                        </div>
+                      </div>
+                      <div class="form-row col-md-12">
+                        <label style="color: green; font-weight: bold; font-size: 12pt;">DADOS DA FILA</label>
+                      </div>
+                      <div class="form-row col-md-12">
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Fila:&#160;</label><span>{{ id }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Identificador:&#160;</label><span>{{ identificador }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Data:&#160;</label><span> {{ data }} </span>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Horário:&#160;</label><span>{{ horario }}</span>
+                        </div>
+                      </div>
+                      <div class="form-row col-md-12">
+                        <div class="col-md-6">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Nome:&#160;</label><span>{{ nome }}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">CPF/CNPJ:&#160;</label><span>{{ cpfCnpj }}</span>
+                        </div>
+                      </div>
+                      <div class="form-row col-md-12">
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Senha:&#160;</label><span>{{ senha }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Prioridade:&#160;</label><span [style.color]="mudarCor(prioridade)">{{ prioridade }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Status:&#160;</label><span>{{ statusFila }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Serviço:&#160;</label><span>{{ servico }}</span>
+                        </div>
+                      </div>
+                      <div class="form-row col-md-12 border-bottom">
+                        <div class="col-md-12">
+                            <label style="color: blue; font-weight: bold; font-size: 12pt;">Detalhamento do serviço:&#160;</label><span>{{ detalhamentoServico }}</span>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div *ngIf="mostrarForm" style="box-shadow: 5px 5px 10px #000;">
+                        <div class="card-header"></div>
+                        <div class="form-row col-md-12">
+                        <div class="form-group col-md-6 ">
+                            <label for="detalheServico">Detalhamento de Serviços:</label>
+                            <select class="form-control" id="detalheServico" formControlName="detalhamentoServico">
+                                <option value="">Escolha o serviço realizado</option>
+                                <option *ngFor="let delServico of delServicos" [value]="delServico.id">{{delServico.descricao}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf ="mostrarMens" class="form-group col-md-6">
+                            <label></label>
+                            <div class="alert alert-success" role="alert">
+                                    Incluido com sucesso!
+                                <a type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-12">
+                                <label for="desc">Descrição</label>
+                                <textarea class="form-control" id="desc" rows="3" formControlName="descricao" placeholder="Escreva sobre..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-12">
+                                <button *ngIf="btnIncluir" type="button" class="btn btn-success" (click)="onInclude()"><i class="fas fa-play"></i>&#160;Incluir {{ contI }}º</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="reagendForm" style="box-shadow: 5px 5px 10px #000;">
+                        <div class="card-header">
+                            Re-agendamento para lista de espera
+                        </div>
+                        <div class="form-row col-md-12">
+                        <div class="form-group col-md-6 ">
+                            <label for="detalheServico">Detalhamento de Serviços:</label>
+                            <select class="form-control" id="detalheServico" formControlName="detalhamentoServico">
+                                <option value="">Escolha o serviço realizado</option>
+                                <option *ngFor="let servicoPerfil of detalhamentoServicosPerfil" [value]="servicoPerfil.id">{{servicoPerfil.descricao}}</option>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-12">
+                                <button type="button" class="btn btn-success" (click)="onIncludeNew()"><i class="fas fa-play"></i>&#160;Incluir novamente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-md-12 d-flex justify-content-between mt-4">
+                  <button *ngIf="btnChamar" type="button" class="btn btn-primary btn-lg" (click)="onCall()"><i class="fas fa-volume-off"></i>&#160;Chamar {{ cont }}</button>
+                  <button *ngIf="btnComecar" type="button" class="btn btn-success btn-lg" (click)="onStart()"><i class="fas fa-play"></i>&#160;Começar</button>
+                  <button *ngIf="reagendar" type="button" class="btn btn-secondary btn-lg" (click)="onReagend()"><i class="fas fa-play"></i>&#160;Re-agendar</button>
+                  <button *ngIf="btnFinalizar" type="button" class="btn btn-danger btn-lg" (click)="onEnd()"><i class="fas fa-stop-circle"></i>&#160;Finalizar</button>
+            </div>
+        </div>
+      </div>
+    </form>
+    <div>
+    </div>
+  </div>
+
+
+

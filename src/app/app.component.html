@@ -1,0 +1,140 @@
+<div class="col-md-12">
+  <header class="text-white d-flex" style="box-shadow: 1px 1px 1px #000;">
+          <div class="d-flex align-items-center col-12" style="font-size: 14pt; font-weight: bold;">
+               <img src="assets/at.jpg" id="logo" style="height: 60px; width: 60px; margin-left: -10px; border-radius: 100%;" alt="ATENDETEC"/>
+            <div class="col-2">
+              <span style="color: red;">ATENDE</span><span style="color: black;">TEC</span>
+            </div>
+            <div class="col-md-4">
+              <a type="button" style="cursor: pointer;" *ngIf="btnRedimensionar" (click)="ampliarTela()" data-toggle="tooltip" data-placement="right" title="Click para aumentar ou diminuir a tela."><i class="fas fa-align-justify"></i></a>
+            </div>
+              <nav class="d-flex justify-content-end col-5">
+                 <span style="color: red;">KEN</span><span style="color: black;">TEC</span>
+              </nav>
+          </div>
+   </header>
+  <div class="col-md-12">
+    <section style="min-height: 750px">
+        <div class="row" style="min-height: 835px; margin-top:5px">
+            <nav *ngIf="mostrarMenu" class="col-md-2 border" id="sidebar">
+            <div class="sidebar-header">
+              <h5>{{ unidade | uppercase }}</h5>
+            </div>
+            <div>
+              <h6>Funcionalidades</h6>
+            </div>
+                 <div  *ngIf="visGrade" class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;" id="btn-menu">
+                    <button type="button" style="width: 230px;" class="btn btn-secondary  dropdown-toggle ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Grade
+                    </button>
+                    <div  class="dropdown-menu" style="width: 275px;">
+                        <a class="dropdown-item " routerLink="/grade" id="gra"><i class="fas fa-edit"></i>&nbsp;Grade de Atendimento</a>
+                        <a class="dropdown-item " routerLink="/grade/grade/multi" id="graM"><i class="fas fa-edit"></i>&nbsp;Grade por Demanda</a>
+                        <a class="dropdown-item " routerLink="/agendamento" id="age"><i class="fas fa-list-alt"></i>&nbsp;Listar Agendamento</a>
+                        <a class="dropdown-item " routerLink="/agendamento/excluiragendamento" id="excage"><i class="fas fa-trash-alt"></i>&nbsp;Excluir Agendamento</a>
+                        <a *ngIf="libGrade" class="dropdown-item " routerLink="/grade/liberargrade" id="libgra"><i class="fas fa-lock-open"></i>&nbsp;Liberar Grade</a>
+                    </div>
+                  </div>
+                  <div *ngIf="visRecep" class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;" id="btn-menu">
+                    <button type="button" style="width: 230px;" class="btn btn-secondary my-2 my-sm-0 dropdown-toggle ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Recepção
+                    </button>
+                    <div  class="dropdown-menu" style="width: 275px;" id="menu">
+                        <a  class="dropdown-item " routerLink="/ativacao" id="cad"><i class="fas fa-clipboard-check"></i>&nbsp;Ativar senha</a>
+                        <a  class="dropdown-item" routerLink="/agendamento" id="agen"><i class="fas fa-edit"></i>&nbsp;Consultar agenda</a>
+                        <a  class="dropdown-item" routerLink="/ativacao/listarfila" id="ati"><i class="fas fa-list-alt"></i>&nbsp;Consultar ativados</a>
+                    </div>
+                  </div>
+                  <div *ngIf="visAtend"  class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;" id="btn-menu">
+                    <button type="button" style="width: 230px;" class="btn btn-secondary my-2 my-sm-0 dropdown-toggle ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Atendimento
+                    </button>
+                    <div  class="dropdown-menu" style="width: 275px;" id="menu">
+                        <a  class="dropdown-item " routerLink="/atendimento" id="cad"><i class="fas fa-users"></i>&nbsp;Iniciar Atendimento</a>
+                    </div>
+                  </div>
+                  <div *ngIf="visCont" class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;" id="btn-menu">
+                    <button type="button" style="width: 230px;" class="btn btn-secondary my-2 my-sm-0 dropdown-toggle ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Usuários
+                    </button>
+                    <div  class="dropdown-menu" style="width: 275px;" id="menu">
+                        <a  class="dropdown-item " routerLink="/contribuinte" id="cad"><i class="fas fa-user-check"></i>&nbsp;Cadastro de Usuário</a>
+                    </div>
+                  </div>
+                  <div *ngIf="visConf" class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;" id="btn-menu">
+                    <button type="button" style="width: 230px;" class="btn btn-secondary my-2 my-sm-0 dropdown-toggle ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Configurações
+                    </button>
+                    <div  class="dropdown-menu" style="width: 275px;" id="menu">
+                        <a  *ngIf="vco" class="dropdown-item " routerLink="/orgao" id="org"><i class="fas fa-building"></i>&nbsp;Orgãos</a>
+                        <a  *ngIf="vcu" class="dropdown-item" routerLink="/unidade" id="uni"><i class="fas fa-warehouse"></i>&nbsp;Unidades</a>
+                        <a  *ngIf="vcs" class="dropdown-item" routerLink="/servico" id="ser"><i class="fas fa-cogs"></i>&nbsp;Serviços</a>
+                        <a  *ngIf="vcds" class="dropdown-item" routerLink="/detalhamentoservico" id="delSer"><i class="fas fa-list-ol"></i>&nbsp;Detalhamento de serviços</a>
+                        <a  *ngIf="vcg" class="dropdown-item" routerLink="/guiche" id="gui"><i class="fas fa-clipboard-check"></i>&nbsp;Guichês</a>
+                        <a  *ngIf="vcc" class="dropdown-item" routerLink="/calendario" id="cal"><i class="far fa-calendar-alt"></i>&nbsp;Calendário</a>
+                        <a  *ngIf="vcic" class="dropdown-item" routerLink="/calendario/alteracao" id="cal"><i class="far fa-calendar-alt"></i>&nbsp;Inativar Calendário</a>
+                        <a  *ngIf="vca" class="dropdown-item" routerLink="/acesso" id="ace"><i class="far fa-id-card"></i>&nbsp;Acessos</a>
+                        <a  *ngIf="vcsr" class="dropdown-item" routerLink="/servidor" id="serv"><i class="fas fa-user-edit"></i>&nbsp;Servidores</a>
+                        <a  *ngIf="vcpa" class="dropdown-item" routerLink="/perfilatendimento" id="per"><i class="fas fa-tasks"></i>&nbsp;Perfil de atendimento</a>
+                        <a  *ngIf="vcm" class="dropdown-item" routerLink="/mural" id="per"><i class="fas fa-edit"></i>&nbsp;Mural</a>
+                    </div>
+                  </div>
+                  <div *ngIf="visRel" class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;" id="btn-menu">
+                    <button type="button" style="width: 230px;" class="btn btn-secondary my-2 my-sm-0 dropdown-toggle ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Consultas
+                    </button>
+                    <div  class="dropdown-menu" style="width: 275px;" id="menu">
+                      <a  class="dropdown-item " routerLink="/relatorios/painelrelatorio" id="relgrade"><i class="fas fa-print"></i>&nbsp;Consulta de Grades</a>
+                      <a  class="dropdown-item " routerLink="/relatorios/painelrelatorioagendamento" id="relagend"><i class="fas fa-print"></i>&nbsp;Consulta de Agendamentos</a>
+                      <a  class="dropdown-item " routerLink="/relatorios/relatorioatendimentolist" id="relaten"><i class="fas fa-print"></i>&nbsp;Consult de Atendimentos</a>
+                      <a  class="dropdown-item " routerLink="/relatorios/relatorioatendentelist" id="relatend"><i class="fas fa-print"></i>&nbsp;Consulta de Atendente</a>
+                    </div>
+                  </div>
+                  <div *ngIf="visPan" class="col-md-2  btn-group dropdown mt-2" style="max-width: 240px;" id="btn-menu">
+                    <button type="button" style="width: 230px;" class="btn btn-secondary my-2 my-sm-0 dropdown-toggle ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Painéis
+                    </button>
+                    <div class="dropdown-menu" style="width: 275px;" id="menu">
+                        <a *ngIf="p01" class="dropdown-item" routerLink="/painel/01" id="p1"><i class="fas fa-solar-panel"></i>&nbsp;Painel 01</a>
+                        <a *ngIf="p02" class="dropdown-item" routerLink="/painel/02" id="p2"><i class="fas fa-solar-panel"></i>&nbsp;Painel 02</a>
+                        <a *ngIf="p03" class="dropdown-item" routerLink="/painel/03" id="p3"><i class="fas fa-solar-panel"></i>&nbsp;Painel 03</a>
+                        <a *ngIf="p04" class="dropdown-item" routerLink="/painel/04" id="p4"><i class="fas fa-solar-panel"></i>&nbsp;Painel 04</a>
+                        <a *ngIf="p05" class="dropdown-item" routerLink="/painel/05" id="p5"><i class="fas fa-solar-panel"></i>&nbsp;Painel 05</a>
+                        <a *ngIf="p06" class="dropdown-item" routerLink="/painel/06" id="p6"><i class="fas fa-solar-panel"></i>&nbsp;Painel 06</a>
+                    </div>
+                  </div>
+                  <div *ngIf="visUp" class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;">
+                    <button type="button" style="width: 240px; font-size: 10pt;" routerLink="/upload/uploadfile" class="btn btn-secondary my-2 my-sm-0  ml-3">Upload</button>
+                  </div>
+                  <div class="col-md-2 btn-group dropdown mt-2" style="max-width: 240px;">
+                      <a id="sair" type="button" style="width: 240px; font-size: 10pt;" class="btn btn-secondary my-2 my-sm-0 ml-3" href="https://kentec.com.br">Sair</a>
+                  </div>
+                  <div>
+                    <p class="text-center" style="margin-top: 150px; font-weight: bold; font-size: 10pt;">Usuário: {{ nome }} <br> Acesso: {{ role }} </p>
+                  </div>
+                  <div class="d-flex justify-content-center mt-5">
+                    <img src="assets/KENTEC02.png" style="width: 100px;" alt="kentec"/>
+                  </div>
+              </nav>
+              <nav *ngIf="telaAmpliada" class="col-md-1" id="sidebar">
+              </nav>
+              <main class="col-md-10">
+                  <h4 *ngIf="mostrarMenu" class="text-center mt-4">Atendetec</h4>
+                  <h6 *ngIf="mostrarMenu" class="text-center">Agendamento, Atendimento e Controle de Senhas</h6>
+                  <h4 *ngIf="telaAmpliada" class="text-center mt-4">AtendeTec</h4>
+                  <h6 *ngIf="telaAmpliada" class="text-center">Agendamento, Atendimento e Controle de Senhas</h6>
+                  <div>
+                    <router-outlet></router-outlet>
+                  </div>
+              </main>
+              <nav *ngIf="telaAmpliada" class="col-md-1" id="sidebar">
+              </nav>
+          </div>
+      </section>
+    </div>
+  <footer class="text-white d-flex justify-content-center align-items-center" style="height: 50px;  box-shadow: 1px 1px 2px #000;">
+      <div style="font-size: 10pt; font-weight: bold;">
+          Desenvolvido por KENTEC - 2021.
+      </div>
+  </footer>
+  </div>

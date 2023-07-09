@@ -1,0 +1,136 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/grade">Listagem</a></li>
+        <li class="breadcrumb-item active">Usuário</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Conferência dos Dados Usuário
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/contribuinte" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="contribuinteForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Formulário para Cadastro do Usuário
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <label style="color: green; font-weight: bolder">Dados do Usuário</label>
+            <div class="form-row col-md-12">
+              <div class="form-group col-md-2">
+                <label for="idCont">ID:</label>
+                <input id="idCont" type="text" class="form-control" formControlName="id" readonly=""/>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="nome">Nome:</label>
+                <input id="nome" type="text" class="form-control" formControlName="nome"/>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="cpf">CPF/CNPJ:</label>
+                <input id="cpf" type="text" class="form-control" formControlName="cpfCnpj"/>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="tel">Telefone:</label>
+                <input id="tel" type="tel" class="form-control" formControlName="fone"/>
+              </div>
+            </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-5">
+                <label for="email">Email:</label>
+                <input id="email" type="email" class="form-control" formControlName="email"/>
+            </div>
+            <div class="form-group col-md-2" *ngIf="mostrarSenha">
+                <label for="password">Senha:</label>
+                <input id="password" type="password" class="form-control" formControlName="senha"/>
+            </div>
+          </div>
+          <div class="col-md-12 mb-2" style="font-size: 10pt; margin-top: -15px; font-weight: bold;">
+            Ao regerar a senha, a mesma terá as 3 primeiras letras do nome e os 3 primeiros números do CPF/CNPJ.
+          </div>
+        </div>
+      </div>
+    </form>
+        <!-- Modal -->
+        <div class="modal fade" id="ModalSalvar" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="TituloModalCentralizado">
+                Vamos lá!
+              </h5>
+            </div>
+            <div class="modal-body" style="font-weight: bold;">
+              Confirmar Inclusão do Usuário.
+            </div>
+            <div class="col-md-12 d-flex justify-content-between">
+              <div class="form-group col-md-4">
+                <label>ID:</label>
+                <span> {{ id }}</span>
+              </div>
+              <div class="form-group col-md-8">
+                <label>Nome:</label>
+                <span> {{ nome }} </span>
+              </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-between">
+              <div class="form-group col-md-6">
+                <label>CPF/CNPJ:</label>
+                <span> {{ cpfCnpj }}</span>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Telefone:</label>
+                <span> {{ fone }} </span>
+              </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-between">
+              <div class="form-group col-md-12">
+                <label>Email:</label>
+                <span> {{ email }}</span>
+              </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-between">
+              <div class="form-group col-md-12">
+                <label>Senha:</label>
+                <span> {{ senha }}</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-dismiss="modal"
+              >
+                <i class="fas fa-window-close"></i>&nbsp;Fechar
+              </button>
+              <button class="btn btn-success" (click)="onSumit()">
+                  <i class="fas fa-save"></i> &nbsp;Confirmar.
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Fim da modal-->
+    <div>
+      <div class="float-right mt-2">
+      <button type="submit" class="btn btn-primary mt-2" (click)="onUpdatePass()">
+        <i class="fas fa-key"></i> &nbsp;Re-definir Senha
+      </button>
+      &nbsp;
+      <button type="submit" id="modal" class="btn btn-success float-right mt-2" (click)="confirmar()"
+        data-toggle="modal" data-target="#ModalSalvar">
+        <i class="fas fa-save"></i> &nbsp;Salvar
+      </button>
+    </div>
+
+

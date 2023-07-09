@@ -1,0 +1,67 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Exclusão de Agenda</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h3 border-left pl-2">
+        Exclusão de Vagas de Agendamento
+      </h1>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="agendExForm">
+  <div class="col-md-8 mb-2">
+    <div style="box-shadow: 5px 5px 10px #000;" class="card">
+    <div class="card-header">
+       <div class="row col-12 ml-1">
+        <label for="nDoTermo">Filtro para Exclusão de Vagas de Agendamento por Grade:</label>
+      </div>
+    </div>
+    <div class="card-body">
+    <div class="row col-12">
+      <div class="form-group col-md-3">
+        <label for="dataIn">Identificador da Grade:</label>
+        <input id="dataIn" type="text" class="form-control" formControlName="gradeId"/>
+      </div>
+      <div class="row col-12">
+        <div class="col-2">
+          <button  class="btn btn-info float-left" data-toggle="modal" data-target="#ModalExclusao" [disabled]="!agendExForm.valid">
+            <i class="fas fa-trash-alt"></i> Excluir Vagas
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</form>
+  <!-- Modal -->
+<div class="modal fade" id="ModalExclusao" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="TituloModalCentralizado">
+        Vamos lá!
+      </h5>
+    </div>
+    <div class="modal-body" style="font-weight: bold; font-size: 12pt;">
+        Excluir agendamento da Grade n.º:<span style="color: blue;"> {{ agendExForm.get('gradeId').value }} </span> ?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">
+        <i class="fas fa-window-close"></i>&nbsp;Fechar
+      </button>
+      <button type="button" class="btn btn-success" (click)="excluirAgendamento()">
+        <i class="far fa-calendar-alt"></i>&nbsp;Excluir
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+  <!--Fim da modal-->
+</div>
+
+

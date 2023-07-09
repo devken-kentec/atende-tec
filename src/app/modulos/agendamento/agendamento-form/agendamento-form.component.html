@@ -1,0 +1,146 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/Agendamento">Listagem</a></li>
+        <li class="breadcrumb-item active">Agendamento</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Cadastro do Agendamento
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/grade" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Resumo da Grade para Agendamento.
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12 d-flex justify-content-center">
+            <div class="form-group col-md-2">
+                <label>IDENTIFICADOR:</label>
+                <span> {{ id }}</span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>DIA:</label>
+                <span> {{ dia | date: 'dd/MM/yyyy' }} </span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>HORA INICIAL:</label>
+                <span> {{ hIn }}</span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>HORA FINAL:</label>
+                <span> {{ hFin }}</span>
+            </div>
+          </div>
+          <div class="form-row col-md-12 d-flex justify-content-center">
+            <div class="form-group col-md-2">
+                <label>INTERVALO:</label>
+                <span> {{ inter }} Min.</span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>UNIDADE:</label>
+                <span> {{ uni }} </span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>SERVIÇO:</label>
+                <span> {{ serv }} </span>
+            </div>
+            <div class="form-group col-md-2">
+                <label>QUANTIDADE:</label>
+                <span> {{ quant }} </span>
+            </div>
+          </div>
+          <div class="form-row col-md-12 d-flex justify-content-center">
+            <button type="button" class="btn btn-info" *ngIf="conf == 'c' ">
+                <i class="fas fa-check"></i> Grade configurada.
+            </button>&#160;
+            <button type="button" class="btn btn-danger" *ngIf="ger == 'n' ">
+                <i class="far fa-hourglass"></i> Vagas não geradas.
+            </button>&#160;
+            <button type="button" class="btn btn-success" *ngIf="ger == 'g' ">
+              <i class="fas fa-clipboard-check"></i> Vagas Geradas com sucesso!
+            </button>
+          </div>
+      </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="ModalSalvar"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="TituloModalCentralizado"
+        aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="TituloModalCentralizado">Vamos lá! </h5>
+                  </div>
+                  <div class="modal-body">
+                    <div class="d-flex justify-content-center" style="font-weight: bold;">Confirmar geração das vagas de agendamento?</div><br/>
+                    <div style="margin-left: 50px;">
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-6">
+                            IDENTIFICADOR: {{ id }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            DIA: {{ dia | date: 'dd/MM/yyyy' }}
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-6">
+                            HORA INICIAL:
+                            {{ hIn }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            HORA FINAL:
+                             {{ hFin }}
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-6">
+                            INTERVALO:
+                            {{ inter }} Min.
+                        </div>
+                        <div class="form-group col-md-6">
+                            UNIDADE:
+                            {{ uni }}
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-6">
+                            SERVIÇO:
+                            {{ serv }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            QUANTIDADE:
+                            {{ quant }}
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                      <i class="fas fa-window-close"></i>&nbsp;Fechar
+                    </button>
+                    <button class="btn btn-success" (click)="confirmar(id)" *ngIf="ger == 'n' " data-toggle="modal" data-target="#teste">
+                        <i class="fas fa-save"></i> &nbsp;Confirmar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Fim da modal-->
+            </div>
+            <button type="submit" id="modal" class="btn btn-success float-right mt-3" data-toggle="modal" data-target="#ModalSalvar" *ngIf="ger == 'n' ">
+                <i class="fas fa-save"></i> &nbsp;Gerar Agendamento
+            </button>
+        </div>

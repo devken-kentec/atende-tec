@@ -1,0 +1,66 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item active">Iniciar Atendimento</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Começar o Atendimento
+        </h1>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+    </div>
+    <div class="d-flex justify-content-center">
+    <form class="needs-validation col-md-4" novalidate [formGroup]="inicialAtendForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Iniciando os Atendimentos.
+        </div>
+        <div class="card-body">
+            <div class="form-row col-md-12">
+                <div class="col-md-12">
+                    <div class="form-row col-md-12">
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-12">
+                               <span style="font-weight: bold; color: black"> Óla, {{ getNome }}, por gentileza, abaixo informe seu status de atendimento e o n.º de seu Guichê ou local de Atendimento.</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="statusAtendimento">Status de Atendimento:</label>
+                            <select class="form-control" id="statusAtendimento" formControlName="statusAtendimento">
+                                <option value="" selected>Escolha o status</option>
+                                <option>Atendendo</option>
+                                <option>Serviço Interno</option>
+                                <option>Intervalo</option>
+                                <option>Água</option>
+                                <option>Banheiro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="guiche">Informe o N.º do Guiche:</label>
+                            <select class="form-control"  id="guiche"  formControlName="guiche">
+                                <option value="" selected>N.º Guichê</option>
+                                <option *ngFor="let guiche of guiches" [value]="guiche.descricao">{{guiche.descricao}}</option>
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="col-md-8">
+        <button type="submit" class="btn btn-success float-right mt-2" (click)="onSubmit()" [disabled]="!inicialAtendForm.valid">
+          <i class="fas fa-play"></i>&nbsp;Começar
+        </button>
+      </div>
+  </div>
+
+

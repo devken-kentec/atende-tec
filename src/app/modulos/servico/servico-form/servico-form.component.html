@@ -1,0 +1,77 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/servico">Listagem</a></li>
+        <li class="breadcrumb-item active">Serviço</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Cadastro de Serviços
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/servico" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="servicoForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Formulário para Cadastro de Serviços
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-1">
+              <label for="id">ID:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="id"
+                formControlName="id"
+                readonly
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="descricao">Descrição:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="descricao"
+                formControlName="descricao"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label for="sigla">Sigla:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="sigla"
+                formControlName="sigla"
+              />
+            </div>
+            <div class="form-group col-md-5">
+                    <div formGroupName="orgao">
+                    <label for="comboExer">Secretarias:</label>
+                    <select class="form-control" id="comboExer" formControlName="id">
+                        <option *ngFor="let orgao of orgaos" [value]="orgao.id">{{orgao.descricao}}</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button
+        type="submit"
+        (click)="onSumit()"
+        class="btn btn-success float-right mt-2"
+      >
+      <i class="fas fa-save"></i> &nbsp;Salvar
+      </button>
+    </div>
+  </div>

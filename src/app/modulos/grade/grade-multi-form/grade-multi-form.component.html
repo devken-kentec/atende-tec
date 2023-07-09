@@ -1,0 +1,148 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item"><a routerLink="/grade">Listagem</a></li>
+      <li class="breadcrumb-item active">Grade</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h3 border-left pl-2">
+        Cadastro da Grade de Agendamento por Demanda
+      </h1>
+    </div>
+    <div class="col-md">
+      <button type="button" routerLink="/grade" class="btn btn-warning float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="gradeForm">
+    <div class="card" style="box-shadow: 5px 5px 10px #000;">
+      <div class="card-header">
+        Formulário para cadastro da Grade de Atendimento por demanda
+      </div>
+      <div class="card-body">
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-2">
+            <label for="id">Identificador:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              formControlName="id"
+              readonly
+            />
+          </div>
+          <div class="form-group col-md-2" >
+              <label for="d1">Data Incial:</label>
+              <select  class="form-control" id="d1" formControlName="dataInicial">
+                <option *ngFor="let calendario of calendarios" [value]="calendario.id">{{formatarDate(calendario.dia) + " - " + calendario.observacao }}</option>
+              </select>
+          </div>
+          <div class="form-group col-md-2" >
+              <label for="d2">Data Final:</label>
+              <select  class="form-control" id="d2" formControlName="dataFinal">
+                <option *ngFor="let calendario of calendarios" [value]="calendario.id">{{formatarDate(calendario.dia) + " - " + calendario.observacao }}</option>
+              </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="hInicial">Hora Inicial:</label>
+            <input id="hInicial" type="time" class="form-control" formControlName="horaInicial"/>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="hFinal">Hora Final:</label>
+            <input id="hFinal" type="time" class="form-control"  formControlName="horaFinal"/>
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-2">
+            <label for="inter">Intervalo de aten. (Minutos):</label>
+            <input id="inter"
+                   type="number"
+                   class="form-control"
+                   formControlName="intervalo"
+                   (blur)="calcula()"/>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="unidade">Unidades:</label>
+            <select  class="form-control" id="unidade" formControlName="unidade">
+              <option *ngFor="let unidade of unidades" [value]="unidade.id">{{unidade.descricao}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="comboServ">Serviço:</label>
+            <select class="form-control" id="comboServ" formControlName="servico">
+                <option *ngFor="let servico of servicos" [value]="servico.id">{{servico.descricao}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="quant">Total de atendimento:</label>
+            <input id="quant" type="number" class="form-control" formControlName="quantidade" readonly="readonly"/>
+          </div>
+        </div>
+        <div class="form-row col-md-12 d-flex justify-content-center">
+          <div class="form-group col-md-3">
+          <div class="card" style="box-shadow: 5px 5px 10px #000;">
+            <div class="card-header">
+                  Resumo da grade.
+                 </div>
+                 <div class="card-body">
+              <div class="form-row col-md-12 d-flex justify-content-center">
+                <strong id="horaTotal" style="color: blue;">{{ horaTotal }}</strong><span>&#160;Horas</span>
+              </div>
+              <div class="form-row col-md-12 d-flex justify-content-center">
+                <strong id="minutoTotal" style="color: red;">{{ minutoTotal }}</strong><span>&#160;Minutos</span>
+              </div>
+              <div class="form-row col-md-12 d-flex justify-content-center">
+                Média: &#160;<strong id="mediaAtenHora" style="color: green;">{{ mediaAtenHora }}</strong><span>&#160;Atend./Hora</span>
+              </div>
+              <div class="form-row col-md-12 d-flex justify-content-center">
+                Total de atendimento:&#160;<strong id="totAtend" style="color: Black;">{{ totAtend }}</strong>
+              </div>
+              <div class="form-row col-md-12 d-flex justify-content-center">
+                Intervalo:&#160;<strong id="corrVaga" style="color: Black;">{{ corrVaga }}</strong><strong>&#160;min</strong>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+      <!-- Modal -->
+      <div class="modal fade" id="ModalSalvar" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="TituloModalCentralizado">
+              Vamos lá!
+            </h5>
+          </div>
+          <div class="modal-body" style="font-weight: bold;">
+            Confirmar geração da grade de atendimento?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-dismiss="modal"
+            >
+              <i class="fas fa-window-close"></i>&nbsp;Fechar
+            </button>
+            <button class="btn btn-success" (click)="onSubmit()">
+                <i class="fas fa-save"></i> &nbsp;Confirmar.
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fim da modal-->
+  <div>
+    <button type="button" id="modal" class="btn btn-success float-right mt-2" data-toggle="modal" data-target="#ModalSalvar">
+      <i class="fas fa-save"></i> &nbsp;Salvar
+    </button>
+  </div>
+
+

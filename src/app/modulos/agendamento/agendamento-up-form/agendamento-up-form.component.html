@@ -1,0 +1,186 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/grade">Listagem</a></li>
+        <li class="breadcrumb-item active">Grade</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Conferência dos Dados do Agendamento
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/agendamento" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="agenUpForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Formulário para Conferência de Agendamento
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <label style="color: green; font-weight: bolder">Dados do Agendamento</label>
+			<div class="form-row col-md-12">
+				<div class="form-group col-md-2">
+					<label for="idAgend">ID:</label>
+					<input id="idAgend" type="text" class="form-control" formControlName="id" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="horario">Horário:</label>
+					<input id="horario" type="time" class="form-control" formControlName="horario" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="sequencial">Seguencial:</label>
+					<input id="sequencial" type="text" class="form-control" formControlName="sequencial" readonly="readonly"/>
+                </div>
+                <div class="form-group col-md-2">
+					<label for="prioridade">Prioridade:</label>
+					<input id="prioridade" type="text" class="form-control" formControlName="prioridade" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="senha">Senha:</label>
+					<input id="senha" type="text" class="form-control" formControlName="senha" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="status">Status do Agendamento:</label>
+					<input id="status" type="text" class="form-control" formControlName="statusAgendamento" readonly="readonly"/>
+				</div>
+			</div>
+      </div>
+      <div class="form-row col-md-12" formGroupName="contribuinte">
+          <label style="color: green; font-weight: bolder">Dados do Contribuinte</label>
+			  <div class="form-row col-md-12">
+				<div class="form-group col-md-2">
+					<label for="idCont">ID:</label>
+					<input id="idCont" type="text" class="form-control" formControlName="id" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="nome">Nome:</label>
+					<input id="nome" type="text" class="form-control" formControlName="nome" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="cpf">CPF/CNPJ:</label>
+					<input id="cpf" type="text" class="form-control" formControlName="cpfCnpj" readonly="readonly"/>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="tel">Telefone:</label>
+					<input id="tel" type="tel" class="form-control" formControlName="fone"readonly="readonly"/>
+				</div>
+			</div>
+    </div>
+    <div>
+      <div class="form-row col-md-12" formGroupName="contribuinte">
+            <div class="form-group col-md-5">
+                <label for="email">Email:</label>
+                <input id="email" type="email" class="form-control" formControlName="email" readonly="readonly"/>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="password">Senha:</label>
+                <input id="password" type="text" class="form-control" formControlName="senha" readonly="readonly"/>
+            </div>
+            <div class="form-group col-md-2">
+              <button class="btn btn-primary" style="margin-top: 32px;" (click)="encaixeTecnico()" data-toggle="modal" data-target="#ModalEncaixe">
+                <i class="fas fa-puzzle-piece"></i>&nbsp;Encaixe Técnico
+              </button>
+            </div>
+        </div>
+      </div>
+        <div class="form-row col-md-12">
+            <label style="color: green; font-weight: bolder">Dados da Grade de Atendimento</label>
+            <div class="form-row col-md-12" formGroupName="grade">
+                <div class="form-group col-md-3">
+                    <label for="id">Identificador da Grade:</label>
+                    <input id="id" type="text" class="form-control" formControlName="id" readonly="readonly"/>
+                </div>
+                <div class="form-group col-md-3" formGroupName="calendario">
+                    <label for="cal">Calendário:</label>
+                    <input id="cal" type="date" class="form-control" formControlName="dia" readonly="readonly"/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="hInicial">Hora Inicial:</label>
+                    <input id="hInicial" type="time" class="form-control" formControlName="horaInicial" readonly="readonly"/>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="hFinal">Hora Final:</label>
+                    <input id="hFinal" type="time" class="form-control" formControlName="horaFinal" readonly="readonly"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-row col-md-12"formGroupName="grade">
+            <div class="form-group col-md-2" >
+				    <label for="inter">Intervalo de atendimento:</label>
+				    <input id="inter" type="number" class="form-control" formControlName="intervalo" readonly="readonly"/>
+            </div>
+			    <div class="form-group col-md-4">
+                <div formGroupName="unidade">
+				         <label for="unidade">Unidade:</label>
+				         <input id="unidade" type="text" class="form-control" formControlName="descricao" readonly="readonly"/>
+                </div>
+            </div>
+			<div class="form-group col-md-3" formGroupName="servico">
+				<label for="serv" >Tipo serviço:</label>
+				<input id="serv" type="text" class="form-control" formControlName="descricao" readonly="readonly"/>
+			</div>
+			<div class="form-group col-md-3">
+				<label for="quant">Total de atendimento:</label>
+				<input id="quant" type="number" class="form-control" formControlName="quantidade" readonly="readonly"/>
+			</div>
+        </div>
+        </div>
+      </div>
+    <!-- Modal -->
+    <div class="modal fade"
+         id="ModalEncaixe"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="TituloModalCentralizado"
+         aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="TituloModalCentralizado">Vamos lá! </h5>
+          </div>
+              <div class="modal-body">
+                <div class="d-flex justify-content-center" style="font-weight: bold;">CONFIRMAR ENCAIXE TÉCNICO?</div><br/>
+                <div class="d-flex justify-content-center form-row col-md-12">
+                  <div *ngIf="!adicCPF" class="form-group col-md-5">
+                    <span>CPF/CNPJ AVULSO OU</span>
+                  </div>
+                  <div *ngIf="adicCPF" class="form-group col-md-5">
+                    <label for="cpfN">Novo CPF/CNPJ:</label>
+                    <input id="cpfN" type="text" class="form-control" formControlName="cpfCnpjNovo" (blur)="novoCpf()"/>
+                  </div>
+                  <div class="form-group col-md-5" *ngIf="!adicCPF">
+                    <button type="button" class="btn btn-info"  (click)="adicionaCpf()">
+                      <i class="far fa-hand-point-right"></i>&nbsp;Informar CPF/CNPJ
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                  <i class="fas fa-window-close"></i>&nbsp;Fechar
+                </button>
+                <button class="btn btn-success" (click)="incluir()">
+                    <i class="fas fa-save"></i> &nbsp;Incluir
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Fim da modal-->
+    </form>
+
+
+
+
+
+
+
+

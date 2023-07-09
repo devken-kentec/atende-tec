@@ -1,0 +1,122 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item active">Listagem</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Listagem da Grade de Atendimento
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="new" class="btn btn-success float-right">
+          <i class="fas fa-user-plus"></i> Cadastrar Grade
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="buscaForm">
+		<div class="col-12 mb-2">
+      <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Pesquisar Grade de Atendimento
+      </button>
+      <div class="collapse " id="collapseExample">
+      <div style="box-shadow: 5px 5px 10px #000;" class="card">
+      <div class="card-header">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro para Listagem das Grades de Atendimento:</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-2">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="unidade">Unidades:</label>
+          <select  class="form-control" id="unidade" formControlName="unidade">
+            <option value="">Nenhum</option>
+            <option *ngFor="let unidade of unidades" [value]="unidade.descricao">{{unidade.descricao}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="comboServ">Serviço:</label>
+            <select class="form-control" id="comboServ" formControlName="servico">
+                <option value="">Nenhum</option>
+                <option *ngFor="let servico of servicos" [value]="servico.descricao">{{servico.descricao}}</option>
+            </select>
+        </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisar()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </form>
+  <div class="d-flex justify-content-center mt-5" style="font-size: 14pt; font-weight: bold;" *ngIf="!grades">USE O FILTRO ACIMA PARA GERAR A LISTA.</div>
+     <div id="tbsd" class="table-responsive" *ngIf="grades">
+      <table class="table table-hover">
+        <thead>
+          <tr class="bg-success text-light">
+            <th>#</th>
+            <th>Dia</th>
+            <th>Horario Inicial</th>
+            <th>Horario Final</th>
+            <th>Intervalo</th>
+            <th>Correção</th>
+            <th>Total</th>
+            <th>Unidade</th>
+            <th>Serviço</th>
+            <th>Situação</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let grade of grades">
+            <td><strong>{{ grade.id }}</strong></td>
+            <td>{{ grade.calendario.dia | date: 'dd/MM/yyyy'}}</td>
+            <td>{{ grade.horaInicial }}</td>
+            <td>{{ grade.horaFinal }}</td>
+            <td>{{ grade.intervalo }}</td>
+            <td>{{ grade.correcaoHora }}</td>
+            <td>{{ grade.quantidade }}</td>
+            <td>{{ grade.unidade.sigla }}</td>
+            <td>{{ grade.servico.descricao }}</td>
+            <td>
+              <button type="button" data-toggle="tooltip" data-placement="top" title="Grade configurada!" class="btn btn-info" *ngIf="grade.configurado == 'c' ">
+                <i class="fas fa-check"></i>
+              </button>
+              <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Vagas não geradas!" *ngIf="grade.gerado == 'n' ">
+                <i class="far fa-hourglass"></i>
+              </button>
+              <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Vagas geradas!" *ngIf="grade.gerado == 'g' ">
+                <i class="fas fa-clipboard-check"></i>
+              </button>
+            </td>
+            <td>
+              <button (click)="onEdit(grade.id)" class="btn btn-outline-info btn-sm" data-toggle="tooltip"
+                data-placement="top" title="Editar grade de atendimento?" [disabled]="grade.gerado == 'g'"><i class="far fa-edit"></i>
+              </button>
+              <button (click)="gerarAgendamento(grade.id)" class="btn btn-outline-success btn-sm"
+                data-toggle="tooltip" data-placement="top" title="Gerar vagas de agendamento?"><i class="fas fa-list-ol"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+

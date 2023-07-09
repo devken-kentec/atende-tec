@@ -1,0 +1,136 @@
+<div class="col-md-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item active">Cadastro do Perfil de Atendimento</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Perfil de Atendimento
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="perfilForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Formulário para Cadastro do Perfil de Atendimento
+        </div>
+        <div class="card-body">
+            <div class="form-row col-md-12">
+                <div class="col-md-6">
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="servidor">Servidor:</label>
+                            <select class="form-control" id="servidor" formControlName="matricula" (blur)="listarPerfil(perfilForm.get('matricula').value)">
+                                <option value="" selected>Escolha o servidor</option>
+                                <option *ngFor="let servidor of servidores" [value]="servidor.matricula">{{servidor.nome}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-12">
+                           <span style="font-weight: bold; color: blue;"> Confira a matrícula: <span style="color: red">{{perfilForm.get('matricula').value}}</span></span>
+                           <div class="d-flex justify-content-center mt-2" style="font-size: 12pt; font-weight: bold; margin-bottom: -20px;" *ngIf="resError != null">
+                            <div class="alert alert-danger" role="alert">
+                              {{ resError }}
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="detalheServico">Detalhamento de Serviços:</label>
+                            <select multiple class="form-control" id="detalheServico" formControlName="servico" size="12">
+                                <option *ngFor="let delServico of delServicos" [value]="delServico.id">{{delServico.descricao}}</option>
+                            </select>
+                            <small class="form-text text-muted">Para multipla seleção mantenha a tecla Ctrl pressionada.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4" style="font-size: 14pt; font-weight: bold;" *ngIf="!perfilAtendimentos">SELECIONE UM SERVIDOR PARA GERAR A LISTA.</div>
+                  <div class="col-md-6" *ngIf="perfilAtendimentos != null" >
+                    <span style="font-weight: bold; color: blue;">Acessos para: <span style="color: red">{{perfilForm.get('matricula').value}}</span></span>
+                    <div id="tbsd" class="table-responsive" style="max-height: 430px;">
+                      <table class="table table-hover">
+                          <thead>
+                            <tr class="bg-success text-light">
+                              <th>ID</th>
+                              <th>Servidor</th>
+                              <th>Unidade</th>
+                              <th>Tipo</th>
+                              <th>Detalhamento</th>
+                              <th>Serviço</th>
+                              <th>Ações</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let perfilAtendimento of perfilAtendimentos">
+                              <td>
+                                  {{perfilAtendimento.id}}
+                              </td>
+                              <td>
+                                  {{perfilAtendimento.servidor}}
+                              </td>
+                              <td>
+                                  {{perfilAtendimento.unidade}}
+                              </td>
+                              <td>
+                                  {{perfilAtendimento.role}}
+                              </td>
+                              <td>
+                                  {{perfilAtendimento.detalhamento}}
+                              </td>
+                              <td>
+                                  {{perfilAtendimento.servico}}
+                              </td>
+                              <td>
+                                <button (click)="pegarDados(perfilAtendimento.id, perfilAtendimento.detalhamento)" data-toggle="modal" data-target="#ModalExclusao" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button type="submit" class="btn btn-success float-right mt-2" (click)="onSubmit()">
+      <i class="fas fa-save"></i> &nbsp;Salvar
+      </button>
+    </div>
+  </div>
+     <!-- Modal -->
+     <div class="modal fade" id="ModalExclusao" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="TituloModalCentralizado">
+              Vamos lá!
+            </h5>
+          </div>
+          <div class="modal-body" style="font-weight: bold;">
+            Confirmar exclusão do detalhamento {{ _detalhamento }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              <i class="fas fa-window-close"></i>&nbsp;Fechar
+            </button>
+            <button class="btn btn-success" (click)="onDelete()">
+                <i class="fas fa-save"></i> &nbsp;Confirmar.
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fim da modal-->
+
+

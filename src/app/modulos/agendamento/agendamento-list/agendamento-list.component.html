@@ -1,0 +1,134 @@
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item active">Listagem</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Listagem de Agendamento
+        </h1>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="buscaForm">
+		<div class="col-12 mb-2">
+      <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Pesquisar Vagas de Agendamento
+      </button>
+      <div class="collapse " id="collapseExample">
+      <div style="box-shadow: 5px 5px 10px #000;" class="card">
+      <div class="card-header">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro para Listagem das Vagas de Agendamento:</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-2">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="unidade">Unidades:</label>
+          <select  class="form-control" id="unidade" formControlName="unidade">
+            <option value="">Nenhum</option>
+            <option *ngFor="let unidade of unidades" [value]="unidade.descricao">{{unidade.descricao}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="comboServ">Serviço:</label>
+            <select class="form-control" id="comboServ" formControlName="servico">
+                <option value="">Nenhum</option>
+                <option *ngFor="let servico of servicos" [value]="servico.descricao">{{servico.descricao}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="comboSta">Status Agenadamento:</label>
+          <select class="form-control" id="comboSta" formControlName="statusAgendamento">
+              <option value="">Nenhum</option>
+              <option value="Em espera">Em espera</option>
+              <option value="Agendado">Agendado</option>
+              <option value="Ativado">Ativado</option>
+              <option value="Cancelado">Cancelado</option>
+              <option value="Reagendado">Reagendado</option>
+              <option value="Finalizado">Finalizado</option>
+          </select>
+      </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisar()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </form>
+     <div id="tbsd" class="table-responsive" *ngIf="agendamentos">
+      <table class="table table-hover">
+        <thead>
+          <tr class="bg-success text-light">
+            <th>#</th>
+            <th>Horario</th>
+            <th>Sequencial</th>
+            <th>Prioridade</th>
+            <th>Senha</th>
+            <th>Status</th>
+            <th>Grade</th>
+            <th>Unidade</th>
+            <th>Serviço</th>
+            <th>Dia</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let agendamento of agendamentos">
+            <td><strong>{{ agendamento.id }}</strong></td>
+            <td>{{ agendamento.horario }}</td>
+            <td>{{ agendamento.sequencial }}</td>
+            <td>{{ agendamento.prioridade == null ? '⌛' : agendamento.prioridade }}</td>
+            <td>{{ agendamento.senha }}</td>
+            <td>{{ agendamento.statusAgendamento }}</td>
+            <td>{{ agendamento.grade.id }}</td>
+            <td>{{ agendamento.grade.unidade.sigla }}</td>
+            <td>{{ agendamento.grade.servico.sigla }}</td>
+            <td>{{ agendamento.grade.calendario.dia | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <button (click)="editUp(agendamento.id)" class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top" title="Editar agendamento?" *ngIf="agendamento.statusAgendamento != 'Finalizado' "><i class="far fa-edit"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="paginaForm" style="margin-top: 15px;">
+      <div class="row col-12 d-flex justify-content-center align-items-center" style="font-size: 10pt;">
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Menor" class="btn btn-info" (click)="paginaMenor()">
+              <i class="fas fa-minus"></i> Anterior
+            </button>
+            <div class="form-group col-md-1" style="margin-top: 15px; text-align: center;"><span>Pág. {{ pagina + 1}}  de {{ totalPages  }}</span></div>
+            <button type="button" data-toggle="tooltip" data-placement="top" title="Maior" class="btn btn-info" (click)="paginaMaior()">
+              <i class="fas fa-plus"></i> Próximo
+            </button>
+            <div class="form-group col-md-1" style="margin-top: 15px; text-align: center;">
+              <select class="form-control" id="pegaTamanho" name="quantPag" formControlName="quantPag" (change)="atualizaPagina()">
+                  <option value=5>5</option>
+                  <option value=10>10</option>
+                  <option value=25>25</option>
+                  <option value=50>50</option>
+              </select>
+            </div>
+        <span class="float-right">Total de registro: {{ totalElements }}</span>
+    </div>
+  </form>
+
+
+
+

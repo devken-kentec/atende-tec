@@ -1,0 +1,108 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/servidor">Listagem</a></li>
+        <li class="breadcrumb-item active">Cadastro de Servidor</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Cadastro do Servidor
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/servidor" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="servForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Formulário para Cadastro de Servidor
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-2">
+                <label for="mat">Matricula:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nome"
+                  formControlName="matricula"
+                />
+              </div>
+            <div class="form-group col-md-6">
+              <label for="nome">Nome:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nome"
+                formControlName="nome"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="cpf">CPF:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="cpf"
+                formControlName="cpf"
+              />
+            </div>
+            </div>
+            <div class="form-row col-md-12">
+                <div class="form-group col-md-6">
+                <label for="lot">Lotação:</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="lot"
+                    formControlName="lotacao"
+                />
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="email">Email:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        formControlName="email"
+                    />
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="fone">Telefone: </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="fone"
+                        formControlName="telefone"
+                    />
+                </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-2">
+                <label for="obs">Status:</label>
+                <select class="form-control" id="status" name="status" formControlName="statusServidor">
+                  <option value="" selected>Escolha uma opção</option>
+                  <option value="Ativo">Ativo</option>
+                  <option value="Inativo">Inativo</option>
+                </select>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button *ngIf="btnSave" type="submit" class="btn btn-success float-right mt-2" (click)="onSubmit()" [disabled]="!servForm.valid">
+        <i class="fas fa-save"></i> &nbsp;Salvar
+      </button>
+      <button *ngIf="btnUpdate" type="submit" class="btn btn-success float-right mt-2" (click)="onUpdate()" [disabled]="!servForm.valid">
+        <i class="fas fa-save"></i> &nbsp;Alterar
+      </button>
+    </div>
+  </div>
+
+

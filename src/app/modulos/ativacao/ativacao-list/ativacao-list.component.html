@@ -1,0 +1,40 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item active">Listagem</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Listagem de Senhas Ativas
+        </h1>
+      </div>
+    </div>
+     <div id="tbsd" class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr class="bg-success text-light">
+            <th>ID/Ativação</th>
+            <th>Identificador/<br/>Prioridade</th>
+            <th>Status da Fila/<br/>Status do Agendamento</th>
+            <th>Senha/Data/Horário</th>
+            <th>Nome/<br/>CPF/CNPJ</th>
+            <th>Serviço/<br/>Detalhamento de Serviço/<br/>Unidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of filas">
+            <td>{{ fila.id }}<br/>{{globalService.formatarDate(fila.ativacao) }}<br/>{{ globalService.formatarTime(fila.ativacao)}}</td>
+            <td>{{ fila.identificador }}<br/>{{ fila.prioridade }}</td>
+            <td>{{ fila.statusFila }}<br/>{{ fila.statusAgendamento }}</td>
+            <td>{{ fila.senha }}<br/>{{ globalService.formatarDate(fila.data) }}<br/> {{ fila. horario }} </td>
+            <td>{{ fila.nome }}<br/>{{ globalService.formatarPessoas(fila.cpfCnpj) }}</td>
+            <td>{{ fila.servico }}<br/>{{ fila.detalhamentoServico }}<br/>{{ fila.unidade }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+

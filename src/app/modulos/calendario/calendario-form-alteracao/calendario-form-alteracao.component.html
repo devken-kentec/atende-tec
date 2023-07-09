@@ -1,0 +1,71 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Alteração do Status Dia</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h3 border-left pl-2">
+        Alteração do Status do Dia de Atendimento
+      </h1>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="calAltForm">
+  <div class="col-md-8 mb-2">
+    <div style="box-shadow: 5px 5px 10px #000;" class="card">
+    <div class="card-header">
+       <div class="row col-12 ml-1">
+        <label for="nDoTermo">Filtro para Alteração de Status do Dia de Atendimento:</label>
+      </div>
+    </div>
+    <div class="card-body">
+    <div class="row col-12">
+      <div class="form-group col-md-3">
+        <label for="dataIn">Data Inicial:</label>
+        <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="dataOut">Data Final:</label>
+        <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+      </div>
+      <div class="row col-12">
+        <div class="col-2">
+          <button (click)="alterarStatus()" class="btn btn-info float-left" data-toggle="modal" data-target="#ModalAlteracao">
+            <i class="fas fa-search"></i> Alterar Status do Dia
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</form>
+  <!-- Modal -->
+<div class="modal fade" id="ModalAlteracao" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="TituloModalCentralizado">
+        Vamos lá!
+      </h5>
+    </div>
+    <div class="modal-body" style="font-weight: bold; font-size: 12pt;">
+        Deseja Inativar os Dias do Período <span style="color: blue;">{{ dataInicial }}</span> á <span style="color: blue;">{{ dataFinal }}</span>?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">
+        <i class="fas fa-window-close"></i>&nbsp;Fechar
+      </button>
+      <button type="button" class="btn btn-success" (click)="inativar()">
+        <i class="far fa-calendar-alt"></i>&nbsp;Inativar
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+  <!--Fim da modal-->
+</div>
+
+

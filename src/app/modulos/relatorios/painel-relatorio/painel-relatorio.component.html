@@ -1,0 +1,168 @@
+<div class="col-md-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Relatórios das Grades</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h3 border-left pl-2">
+        Relatórios das Grades
+      </h1>
+    </div>
+    <div class="col-md">
+      <button type="button" routerLink="/" class="btn btn-warning float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="buscaUniForm">
+		<div class="col-md-10 mb-2">
+      <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Pesquisar por Unidade
+      </button>
+      <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+        Pesquisar por Serviço
+      </button>
+      <div class="collapse mt-2" id="collapseExample">
+      <div style="box-shadow: 5px 5px 10px #000;" class="card">
+      <div class="card-header">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro por Unidade:</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-3">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="unidade">Unidades:</label>
+          <select  class="form-control" id="unidade" formControlName="unidade">
+            <option value="">Nenhum</option>
+            <option *ngFor="let unidade of unidades" [value]="unidade.descricao">{{unidade.descricao}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="comboServ">Serviço:</label>
+            <select class="form-control" id="comboServ" formControlName="servico">
+                <option value="">Nenhum</option>
+                <option *ngFor="let servico of servicos" [value]="servico.descricao">{{servico.descricao}}</option>
+            </select>
+        </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisarUnidade()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="collapse mt-2" id="collapseExample2">
+      <div style="box-shadow: 5px 5px 10px #000;" class="card">
+      <div class="card-header">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro por Serviço:</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-3">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="unidade">Unidades:</label>
+          <select  class="form-control" id="unidade" formControlName="unidade">
+            <option value="">Nenhum</option>
+            <option *ngFor="let unidade of unidades" [value]="unidade.descricao">{{unidade.descricao}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="comboServ">Serviço:</label>
+            <select class="form-control" id="comboServ" formControlName="servico">
+                <option value="">Nenhum</option>
+                <option *ngFor="let servico of servicos" [value]="servico.descricao">{{servico.descricao}}</option>
+            </select>
+        </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisarServico()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </form>
+  <div class="container mt-5" *ngIf="quantitativoUnidade">
+    <span style="font-weight: bold;">Quantitativo por Unidade</span>
+  <table  >
+    <thead>
+      <tr >
+        <th>Unidade</th>
+        <th>Quantidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let q of quantitativoUnidade">
+        <td>
+            {{q[0]}}
+        </td>
+        <td class="text-center">
+            {{q[1]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row col-12 mt-1">
+      <button  (click)="limparListaUnidade()" class="btn btn-info">
+        <i class="fas fa-search"></i>&nbsp;Limpar Lista
+      </button>
+  </div>
+  </div>
+  <div class="container mt-5" *ngIf="quantitativoServico">
+    <span style="font-weight: bold;">Quantitativo por Serviço</span>
+  <table  >
+    <thead>
+      <tr >
+        <th>Serviço</th>
+        <th>Quantidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let q of quantitativoServico">
+        <td>
+            {{q[0]}}
+        </td>
+        <td class="text-center">
+            {{q[1]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row col-12 mt-1">
+    <button  (click)="limparListaServico()" class="btn btn-info">
+      <i class="fas fa-search"></i> &nbsp;Limpar Lista
+    </button>
+  </div>
+  </div>
+</div>
+

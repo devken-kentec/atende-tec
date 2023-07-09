@@ -1,0 +1,80 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/acesso">Listagem</a></li>
+        <li class="breadcrumb-item active">Acessos</li>
+      </ol>
+    </nav>
+    <div *ngIf ="mostrarMens" class="alert alert-success" role="alert">
+      <a type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+        <span aria-hidden="true">&times;</span>
+      </a>
+         Operação realizada com sucesso!!!
+    </div>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Cadastro de Acessos
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="/acesso" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="acessoForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+          Formulário para Cadastro de Acessos
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-1">
+              <label for="mat">ID:</label>
+              <input type="text" class="form-control" id="id" formControlName="id" readonly/>
+            </div>
+            <div class="form-group col-md-5" formGroupName="servidor">
+              <label for="servidor">Servidor:</label>
+                <select class="form-control" id="servidor" formControlName="matricula">
+                    <option value="" selected>Escolha o servidor</option>
+                    <option *ngFor="let servidor of servidores" [value]="servidor.matricula">{{servidor.nome}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4" formGroupName="unidade">
+              <label for="uni">Unidade:</label>
+              <select class="form-control" id="uni" formControlName="id">
+                <option value="" selected>Escolha a unidade</option>
+                <option *ngFor="let unidade of unidades" [value]="unidade.id">{{unidade.descricao}}</option>
+            </select>
+            </div>
+            <div class="form-group col-md-2" formGroupName="role">
+              <label for="role">Função:</label>
+              <select class="form-control" id="role" formControlName="id">
+                  <option value="" selected>Escolha a função</option>
+                  <option *ngFor="let role of roles" [value]="role.id">{{role.descricao}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="form-group col-md-2">
+              <label for="senha">Senha:</label>
+              <input type="password" class="form-control" id="senha" formControlName="senha" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="float-right mt-2">
+      <button type="submit" class="btn btn-primary" (click)="onUpdatePass()">
+        <i class="fas fa-key"></i> &nbsp;Re-definir Senha
+      </button>
+      <button type="submit" class="btn btn-success" (click)="onSubmit()">
+        <i class="fas fa-save"></i>&nbsp;Salvar
+      </button>
+    </div>
+  </div>
+
+
+

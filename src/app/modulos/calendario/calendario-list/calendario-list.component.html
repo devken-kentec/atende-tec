@@ -1,0 +1,129 @@
+<div class="col-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item active">Listagem</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <h1 class="h3 border-left pl-2">
+          Listagem do Calendário de Atendimento
+        </h1>
+      </div>
+      <div class="col-md">
+        <button type="button" routerLink="new" class="btn btn-success float-right">
+          <i class="fas fa-user-plus"></i> Cadastrar novo dia
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="calForm">
+    <div class="col-12 mb-2">
+      <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Pesquisar Calendário de Atendimento
+      </button>
+      <div class="collapse " id="collapseExample">
+      <div style="box-shadow: 5px 5px 10px #000;" class="card">
+      <div class="card-header">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro para Listagem do Calendário de Atendimento</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-2">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="obs">Observação:</label>
+          <select class="form-control" id="obs" name="observacao" formControlName="observacao">
+            <option value="" selected>Escolha uma opção</option>
+            <option value="Normal">Normal</option>
+            <option value="Sábado">Sábado</option>
+            <option value="Domingo">Domingo</option>
+            <option value="Feriado">Feriado</option>
+            <option value="Ponto Facultativo">Ponto facultativo</option>
+            <option value="Cancelado">Cancelado</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="obs">Status:</label>
+          <select class="form-control" id="status" name="status" formControlName="statusCalendario">
+            <option value="" selected>Escolha uma opção</option>
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+          </select>
+        </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisar()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </form>
+  <div class="d-flex justify-content-center mt-5" style="font-size: 14pt; font-weight: bold;" *ngIf="!calendarios">USE O FILTRO ACIMA PARA GERAR A LISTA.</div>
+     <div id="tbsd" class="table-responsive" *ngIf="calendarios">
+      <table class="table table-hover">
+        <thead>
+          <tr class="bg-success text-light">
+            <th>#</th>
+            <th>Dia</th>
+            <th>Observação</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let calendario of calendarios">
+            <td>
+              <strong>{{calendario.id}}</strong>
+            </td>
+            <td>{{ calendario.dia | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ calendario.observacao}}</td>
+            <td>{{ calendario.statusCalendario}}</td>
+            <td>
+              <button (click)="onEdit(calendario.id)" class="btn btn-outline-info btn-sm"><i class="far fa-edit"></i></button>
+              <button (click)="pegaDados(calendario.id, calendario.dia)" data-toggle="modal" data-target="#ModalExclusao" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="ModalExclusao" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="TituloModalCentralizado">
+            Vamos lá!
+          </h5>
+        </div>
+        <div class="modal-body" style="font-weight: bold;">
+            Deseja excluir o registro do guichê: {{_dia}} ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            <i class="fas fa-window-close"></i>&nbsp;Fechar
+          </button>
+          <button class="btn btn-success" (click)="onDelete()">
+            <i class="fas fa-save"></i> &nbsp;Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fim da modal-->
+  </div>
+
+

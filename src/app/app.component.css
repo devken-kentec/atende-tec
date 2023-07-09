@@ -1,0 +1,29 @@
+header {
+    background-color: #4F4F4F;
+    min-height: 64px;
+}
+
+header ul {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    width: 250px;
+}
+
+section nav {
+    padding: 1rem;
+}
+
+.btn-secondary {
+  background-color: #696969;
+}
+
+footer {
+    background-color: #4F4F4F;
+    padding: 2rem;
+}

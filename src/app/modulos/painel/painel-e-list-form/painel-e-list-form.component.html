@@ -1,0 +1,95 @@
+<div class="col-12 mt-5">
+    <form class="needs-validation" >
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header" style="font-weight: bold; font-size: 16px;">
+           {{ title | uppercase }}
+        </div>
+        <div class="card-body">
+            <div class="form-row col-md-12">
+                <div class="col-md-6">
+                    <div class="card" style="box-shadow: 5px 5px 10px #000;">
+                        <div class="card-header" style="font-weight: bold; font-size: 18px;">
+                           ATENDIMENTO
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row col-md-12  border-bottom">
+                                <div class="col-md-12" style="font-weight: bold; font-size: 20pt; color: blue; text-align: center;">
+                                    CHAMANDO SENHA: {{ senha }}
+                                </div>
+                            </div>
+                            <div class="form-row col-md-12 mt-4">
+                                <div class="col-md-12 text-center">
+                                    <span class="painel">GUICHÊ: {{ guiche | uppercase }}</span> 
+                                </div>
+                            </div>
+                            <div class="form-row col-md-12 mt-4">
+                                <div class="col-md-12 text-center">
+                                    <span class="painel">SERVIÇO: {{ servico | uppercase }}</span> 
+                                </div>
+                            </div>
+                            <div class="form-row col-md-12 mt-4">
+                                <div class="col-md-12 text-center">
+                                    <span class="painel">CHAMADA: {{ data }} - {{ hora }}</span> 
+                                </div>
+                            </div>    
+                            <div class="form-row col-md-12 mt-4">
+                                <div class="col-md-12 text-center">
+                                    <span class="painel">UNIDADE: {{ unidade | uppercase }}</span> 
+                                </div>
+                            </div>
+                            <div class="form-row col-md-12 mt-4">
+                                <div class="col-md-12" [style.color]="mudarCor(prioridade)" style="font-weight: bold; font-size: 20pt; text-align: center;">
+                                    PRIORIDADE: {{ prioridade | uppercase }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+                <div class="col-md-6" >
+                    <div class="text-center">
+                        <span style="font-weight: bold;">SENHAS CHAMADAS</span>
+                    </div>
+                    <table class="table table-hover" style="box-shadow: 5px 5px 10px #000;">
+                        <thead>
+                          <tr class="bg-success text-light">
+                            <th>Senha</th>
+                            <th>Guichê</th>
+                            <th>Chamada</th>
+                            <th>Serviço</th>
+                            <th>Unidade</th>                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let painel of paineis">
+                            <td>
+                                {{painel.senha}}
+                            </td>
+                            <td>
+                                {{painel.guiche}}
+                            </td>
+                            <td>
+                                <small>{{ formatarHora(painel.chamada)}} - {{ formatarData(painel.chamada) }}</small> 
+                            </td>
+                            <td>
+                                {{painel.servico}}
+                            </td>
+                            <td>
+                                {{painel.unidade}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div>
+                          <button class="btn btn-success float-right"   (click)="desligar()">
+                              {{ status }}
+                          </button>
+                      </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </form> 
+  </div>
+ 
+
+
